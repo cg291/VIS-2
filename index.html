@@ -52,21 +52,21 @@
               "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/by%20countrt.csv"
             },
             "key": "Country",
-            "fields": ["Gross domestic product, constant prices"]
+            "fields": ["Gross domestic product per capita, current prices"]
           }
         }
       ],
       "mark": {"type": "geoshape", "stroke": "white"},
       "encoding": {
         "color": {
-          "field": "Gross domestic product, constant prices",
+          "field": "Gross domestic product per capita, current prices",
           "title": "Average annual income",
           "type": "quantitative",
           "scale": {"scheme": "reds"}
         },
         "tooltip": [
           {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-          {"field": "Gross domestic product, constant prices", "type": "quantitative", "title": "Income"}
+          {"field": "Gross domestic product per capita, current prices", "type": "quantitative", "title": "Income"}
         ]
       }
     }

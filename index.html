@@ -87,21 +87,21 @@
               "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/world%20economic%20data.csv"
             },
             "key": "Country",
-            "fields": ["Gross domestic product per capita, current prices"]
+            "fields": ["GDP"]
           }
-        },
-        {"calculate": "datum.Gross domestic product per capita, current prices + 0.1", "as": "Active"}
+        }
       ],
       "mark": {"type": "geoshape", "stroke": "white"},
       "encoding": {
         "color": {
-          "field": "Active",
+          "field": "GDP",
           "title": "Average annual income",
           "type": "quantitative",
+          "scale" : {"type": "log"}
         },
         "tooltip": [
           {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-          {"field": "Active", "type": "quantitative", "title": "a"}
+          {"field": "GDP", "type": "quantitative", "title": "a"}
         ]
       }
     }

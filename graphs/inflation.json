@@ -1,0 +1,91 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+      "height": 400,
+      "title": "Change",
+    "data": {
+      "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/world%20economic%20data.csv"
+    },
+    "params": [
+          {
+              "name": "Year_selection",
+              "value": 2018,
+              "bind": {
+                  "input": "range",
+                  "min": 2015,
+                  "max": 2023,
+                  "step": 1,
+                  "name": "Year:  "
+              }
+          }
+      ],
+  
+      "vconcat": [
+          {    
+              "width": 500,
+              "height": 400,
+  
+          
+              "transform":[{"calculate": "Unemployment"}],
+          
+              "mark": {"type" : "circle", "tooltip" :true},
+              "encoding": {
+                  "x": {
+                      "field": "Inflation",
+                      "type": "quantitative",
+                      "axis": {"tickcount": 7},
+                      "scale": {"domain": {"param": "brush"}}
+                  },
+                  "y": {
+                      "field": "Unemployment",
+                      "type": "quantitative",
+                      "axis": {"tickcount": 6},
+                      "scale": {"domain": {"param": "brush2"}}
+                  },
+                  "color": {
+                      "field": "Country",
+                      "type": "nominal"
+                  },
+                  "size": {
+                      "field": "Population",
+                      "type": "quantitative"
+                  }
+              },
+              "transform" : [{"filter": "datum.Attribute == Year_selection"}, {"filter": {"field": "Inflation", "range": [0, 300]}},{"filter": {"field": "Unemployment", "range": [0, 14]}}]
+          },
+          {
+              "width": 500,
+              "height": 200,
+      
+          
+              "transform":[{"calculate": "Unemployment"}],
+          
+              "mark": {"type" : "circle", "tooltip" :true},
+              "params": [{"name": "brush", "select": {"type": "interval","encodings": ["x"]}},{"name": "brush2", "select": {"type": "interval","encodings": ["y"]}}],
+  
+              "encoding": {
+                  "x": {
+                      "field": "Inflation",
+                      "type": "quantitative",
+                      "axis": {"tickcount": 7},
+                      "scale": {"domain" : [0, 300]}
+                  },
+                  "y": {
+                      "field": "Unemployment",
+                      "type": "quantitative",
+                      "axis": {"tickcount": 6},
+                      "scale": {"domain" : [0, 14]}
+                  },
+                  "color": {
+                      "field": "Country",
+                      "type": "nominal"
+                  },
+                  "size": {
+                      "field": "Population",
+                      "type": "quantitative"
+                  }
+              },
+              "transform" : [{"filter": "datum.Attribute == Year_selection"}, {"filter": {"field": "Inflation", "range": [0, 300]}},{"filter": {"field": "Unemployment", "range": [0, 14]}}]
+          }
+      ]
+  }

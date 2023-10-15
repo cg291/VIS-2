@@ -1,0 +1,32 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 70,
+      "height": 400,
+      "title": "Change",
+    "data": {
+      "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/by%20country%20group.csv"
+    },
+    "title" : "Percentange of GDP that is debt in each country group",
+    "mark": {"type": "bar", "tooltip": true},
+    "encoding": {
+      "column": {
+        "field": "Year", "type": "ordinal"
+      },
+      "y": {
+        "field": "General government gross debt", "type": "quantitative",
+        "axis": {"title": "Percentage of debt", "grid": false}
+      },
+      "x": {
+        "field": "Name", "type": "nominal",
+        "scale": {"rangeStep": 12},
+        "axis": {"title": ""}
+      },
+      "color": {
+        "field": "Name", "type": "nominal"
+      }
+    },
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {"domainWidth": 1}
+    }
+  }

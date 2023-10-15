@@ -10,96 +10,35 @@
   <script>
     const spec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 500,
+  "width": 100,
     "height": 400,
     "title": "Change",
   "data": {
     "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/by%20country%20group.csv"
   },
-  "params": [
-        {
-            "name": "Group_selection",
-            "bind": {
-                "input": "select",
-                "options": [
-                    null,
-                    "ASEAN-5",
-                    "Advanced economies",
-                    "Emerging market and developing economies",
-                    "European Union",
-                ],
-                "labels":[
-                    "Show All",
-                    "ASEAN-5",
-                    "Advanced economies",
-                    "Emerging market and developing economies",
-                    "European Union",
-                ],
-                "name": "Group Selection: "
 
-            }
-        }
-    ],
-
-    "vconcat": [
-        {    
-            "width": 500,
-            "height": 400,
-        
-            "mark": {"type" : "line", "tooltip" :true},
-            "encoding": {
-                "y": {
-                    "field": "Volume of imports of goods and services",
-                    // "type": "quantitative",
-                    // "axis": {"tickcount": 7},
-                    // "scale": {"domain": {"param": "brush"}}
-                },
-                "x": {
-                    "field": "Year",
-                    // "type": "quantitative",
-                    // "axis": {"tickcount": 6},
-                    // "scale": {"domain": {"param": "brush2"}}
-                },
-                "color": {
-                    "field": "Name",
-                    "type": "nominal"
-                },
-                "size": {
-                    "field": "Population",
-                    "type": "quantitative"
-                }
-            },
-            "transform" : {"filter": "Group_selection == null || datum.Name == Group_selection"}
-        },
-        {
-            "width": 500,
-            "height": 400,
-        
-            "mark": {"type" : "line", "tooltip" :true},
-            "encoding": {
-                "y": {
-                    "field": "Volume of imports of goods and services",
-                    // "type": "quantitative",
-                    // "axis": {"tickcount": 7},
-                    // "scale": {"domain": {"param": "brush"}}
-                },
-                "x": {
-                    "field": "Year",
-                    // "type": "quantitative",
-                    // "axis": {"tickcount": 6},
-                    // "scale": {"domain": {"param": "brush2"}}
-                },
-                "color": {
-                    "field": "Name",
-                    "type": "nominal"
-                },
-                "size": {
-                    "field": "Population",
-                    "type": "quantitative"
-                }
-            },
-        }
-    ]
+  "mark": {"type": "bar", "tooltip": true},
+  "encoding": {
+    "column": {
+      "field": "Year", "type": "ordinal",
+    },
+    "y": {
+      "field": "General government gross debt", "type": "quantitative",
+      "axis": {"title": "debt", "grid": false}
+    },
+    "x": {
+      "field": "Name", "type": "nominal",
+      "scale": {"rangeStep": 12},
+      "axis": {"title": ""}
+    },
+    "color": {
+      "field": "Name", "type": "nominal"
+    }
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"domainWidth": 1}
+  }
 };
     vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
   </script>

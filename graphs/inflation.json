@@ -6,6 +6,7 @@
     "data": {
       "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/world%20economic%20data.csv"
     },
+    "title" : "How unemployment relates to inflation in different countries",
     "params": [
           {
               "name": "Year_selection",
@@ -56,7 +57,7 @@
           {
               "width": 500,
               "height": 200,
-      
+              "title" : "Use this to select a smaller portion of the graph to look at closely",
           
               "transform":[{"calculate": "Unemployment"}],
           

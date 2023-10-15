@@ -1,0 +1,79 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 450,
+      "height": 400,
+      "title": "Change",
+    "data": {
+      "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/by%20country%20group.csv"
+    },
+    "title": "Gross domestic product per capita (and mean), by country group in USD",
+    "params": [
+            {
+                "name": "Group_selection",
+                "bind": {
+                    "input": "select",
+                    "options": [
+                        "ASEAN-5",
+                        "Advanced economies",
+                        "Emerging market and developing economies",
+                        "European Union"
+                    ],
+                    "labels":[
+                        "ASEAN-5",
+                        "Advanced economies",
+                        "Emerging market and developing economies",
+                        "European Union"
+                    ],
+                    "name": "Group Selection: "
+    
+                }
+            }
+        ],
+    "layer": [{
+      "selection": {
+        "brush": {
+          "type": "interval",
+          "encodings": ["x"]
+        }
+      },
+      "mark": {"type":"bar", "tooltip": true},
+      "encoding": {
+        "x": {
+          "timeUnit": "year",
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "GDP",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "condition": {
+            "selection": "brush", "value": 1
+          },
+          "value": 0.7
+        },
+        "tooltip": [
+          {"field": "GDP", "type": "quantitative", "title": "GDP per capita"}
+              ]
+      },
+      "transform": [{"filter": "Group_selection == null || datum.Name == Group_selection"}]
+    }, {
+      "transform": [
+      {"filter": "datum.Name == Group_selection"},{
+        "filter": {"selection": "brush"}    }
+        
+  ],
+      "mark": "rule",
+      "encoding": {
+        "y": {
+          "aggregate": "mean",
+          "field": "GDP",
+          "type": "quantitative"
+        },
+        "color": {"value": "firebrick"},
+        "size": {"value": 3}
+      }
+  
+    }]
+  }

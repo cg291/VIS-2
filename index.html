@@ -1,105 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Economic Data 2015-2023</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" 
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+  <!-- Add your styles here -->
+  <style>
+    body {
+      background-image: url('Images/bg_image.jpg')
+    }
+  </style>
+
 </head>
 <body>
-  <div id="vis"/>
-  <script>
-    const spec = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {
-    "url": "https://raw.githubusercontent.com/cg291/Homework-week-9/main/js/ne_110m.topojson",
-    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-  },
-  "params": [
-        {
-            "name": "Year_selection",
-            "value": 2018,
-            "bind": {
-                "input": "range",
-                "min": 2015,
-                "max": 2023,
-                "step": 1,
-                "name": "Year:  "
-            }
-        }
-    ],
+  <br>
+  <br>
+  <br>
+  <br>
 
-  "projection": {"type": "equalEarth"},
+  <div class="page">
+    <h1>The world's economic breakdown over the past 8 years</h1>
 
-  "layer": [
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
-         "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-      },
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div id="map" class="vis-container"></div>
+      </div>
 
-      "transform": [
-        {
-          "calculate": "'Data is not available in ' + datum.properties.NAME",
-          "as" : "note"
-        }
-      ],
+    <div class="pure-g">
 
-      "mark" : {
-        "type": "geoshape",
-        "fill": "#ddd",
-        "stroke": "white",
-        "strokeWidth": 1
-      },
+    </div>
+      <div class="pure-u-1-2">
+        <div class="description description-right"> 
+          <p>
+              Good health, nutrition, a place to live, education… Many of the things we care most about require goods and services produced by people: the care 
+              that nurses and doctors give; the food we eat; the homes we live in; the education that teachers provide.
+              <br>
+              <br>
+              Economic growth means an increase in the quantity or quality of the many goods and services that people produce.
+              The history of economic growth is, therefore, the history of how societies left widespread poverty behind. In places that have seen substantial 
+              economic growth, few now go without food, almost all have access to education, and parents rarely suffer the loss of a child. The work of historians 
+              shows this was not the case in the past.
+              <br>
+              <br>
+              Similarly, the history of economic growth is also the history of how large global inequalities emerged – in nutrition, health, education, basic 
+              infrastructure, and many other dimensions. In some countries, the quantity and quality of the goods and services underpinning these outcomes grew 
+              substantially over the past two centuries; in others, they did not.
+          </p>
+        </div>
+      </div>
+      <div class="pure-u-1-2">
+        <div id="gdp_world" class="vis-container"></div>
+      </div>
+    </div>
 
-      "encoding": {"tooltip": {"field": "note"}}
 
-    },
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="page">
+    <h1>A look at trade around the world</h1>
 
-    {
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+              <div id="imports" class="vis-container"></div>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-left"> 
+          <p>
+            In our global economy, consumers are used to seeing products from every corner of the world in their local grocery stores and retail shops. These overseas 
+            products—or imports—provide more choices to consumers. And because they are usually manufactured more cheaply than any domestically produced equivalent, 
+            imports help consumers manage their strained household budgets. The price changes in imports and exports are tracked by the Import/Export Index (MXP) 
+            released by the Bureau of Labor Statistics (BLS).
+          </p>
+        </div>
+      </div>
+    </div>
 
-      "data" : {
-        "url" :"https://raw.githubusercontent.com/cg291/VIS-2/main/Data/world%20economic%20data.csv"
-      },
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+              <div id="imports" class="vis-container"></div>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-4">
+        <div class="description description-right"> 
+          <p>
+            When there are too many imports coming into a country in relation to its exports—which are products shipped from that country to a foreign destination—it 
+            can distort a nation’s balance of trade and devalue its currency. The devaluation of a country's currency can have a huge impact on the everyday life of a 
+            country's citizens because the value of a currency is one of the biggest determinants of a nation’s economic performance and its gross domestic product (GDP). 
+            Maintaining the appropriate balance of imports and exports is crucial for a country. The importing and exporting activity of a country can influence the country's 
+            GDP, its exchange rate, and its level of inflation and interest rates.
+          </p>
+          <h2>Effect on Gross Domestic Product</h2>
+          <p>
+            Gross domestic product (GDP) is a broad measurement of a nation's overall economic activity. Imports and exports are important components of the expenditures 
+            method of calculating GDP.
+            <br>
+            <br>
+            A trade surplus contributes to economic growth in a country. When there are more exports, it means that there is a high level of output from a country's factories 
+            and industrial facilities, as well as a greater number of people that are being employed in order to keep these factories in operation. When a company is exporting a high level of goods, this also equates to a flow of funds into the country, which stimulates consumer spending and contributes to economic growth.
+          </p>
+        </div>
+      </div>
+      <div class="pure-u-1-2">
+        <div id="inflation" class="vis-container"></div>
+      </div>
+    </div>
+  </div>
 
-      "transform" : [
-        {
-          "lookup" : "Country",
-          "from" :{
-            "data" : {
-              "url" : "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
-              "format" : {
-                "type" : "topojson",
-                "feature" : "ne_110m_admin_0_countries"
-              }
-            },
-            "key" : "properties.NAME"
-          },
-          "as" : "geo"
-        },
-        {"filter" : "datum.Attribute == Year_selection"}
-      ],
+    <br>
+    <br>
+    <br>
+    <div class="page">
+      <h1>How does debt affect all this?</h1>
 
-      "mark" : {"type": "geoshape", "stroke": "#fff", "strokeWidth": 0.5},
-      "encoding" : {
-        "shape": {"field": "geo", "type": "geojson"},
-        "color": {
-                    "field": "GDP",
-                    "type": "quantitative",
-                    "title": "GDP per capita",
-                    "scale" : {"type": "log"},
-                    "legend": {"format": ".2s"}
-                },
-      "tooltip": [
-          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-          {"field": "GDP", "type": "quantitative", "title": "gdp"},
-          {"field": "Attribute", "type": "quantitative", "title": "year"}
-              ]
-      }
-    }
-  ],
-  "config": {}
-};
-    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
-  </script>
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div class="description description-left"> 
+            <p>
+              It is important to recognize that rising debt is not a problem when it causes the supply of goods and services to rise along with the demand it creates. 
+              When that happens, the debt is effectively self-liquidating, with debt rising no faster than the real debt-servicing capacity of the economy 
+              (for which GDP is usually a proxy). This doesn’t mean that rising debt in such cases is irrelevant. To the extent that it causes shifts in the distribution of 
+              income, it may benefit individual sectors of the economy at the expense of others, but this is a problem of income distribution, not of debt.
+              <br>
+              <br>
+              The problem is more concerning when debt rises faster than the country’s real debt-servicing capacity. This occurs when debt boosts the demand for goods 
+              and services without directly or indirectly causing an equivalent rise in the production of goods and services. This can happen for a variety of reasons. 
+              For example, rising government debt in an economy without excess labor and capacity may fund additional consumption (through welfare payments, for instance),
+               be poured into defense spending, or go toward nonproductive investment in wasted infrastructure (a particular problem in China); ballooning debt could also 
+               encourage speculative spikes in prices in the property sector, the stock market, or other assets as demand is boosted through the wealth effect.
+            
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+                <div id="debt" class="vis-container"></div>
+        </div>
+      </div>
+      </div>
+  
+
+  </div>
+
+
+
+
+
+  <script type="text/javascript">
+
+    var specVis1 = "./graphs/map.json";
+    vegaEmbed('#map', specVis1, {"actions": false}).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis2 = "./graphs/gdp_world.json";
+    vegaEmbed('#gdp_world', specVis2, {"actions": false}).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis3 = "./graphs/imports.json";
+    vegaEmbed('#imports', specVis3, {"actions": false}).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis4 = "./graphs/inflation.json";
+    vegaEmbed('#inflation', specVis4, {"actions": false}).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis5 = "./graphs/debt.json";
+    vegaEmbed('#debt', specVis5, {"actions": false}).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+</script>
+
+
 </body>
 </html>

@@ -1,0 +1,75 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "title": "Change",
+    "data": {
+      "url": "https://raw.githubusercontent.com/cg291/VIS-2/main/Data/by%20country%20group.csv"
+    },
+    "title" : "A look at the import and export of goods and services by country group (in percentage of change)",
+    "params": [
+          {
+              "name": "Group_selection",
+              "bind": {
+                  "input": "select",
+                  "options": [
+                      null,
+                      "ASEAN-5",
+                      "Advanced economies",
+                      "Emerging market and developing economies",
+                      "European Union"
+                  ],
+                  "labels":[
+                      "Show All",
+                      "ASEAN-5",
+                      "Advanced economies",
+                      "Emerging market and developing economies",
+                      "European Union"
+                  ],
+                  "name": "Group Selection: "
+  
+              }
+          }
+      ],
+  
+      "hconcat": [
+          {    
+              "width": 350,
+              "height": 400,
+          
+              "mark": {"type" : "line", "tooltip" :true},
+              "encoding": {
+                  "y": {
+                      "field": "Volume of imports of goods and services",
+                      "sort": "descending"
+                  },
+                  "x": {
+                      "field": "Year"
+                  },
+                  "color": {
+                      "field": "Name",
+                      "type": "nominal"
+                  }
+              },
+              "transform" : [{"filter": "Group_selection == null || datum.Name == Group_selection"}]
+          },
+          {
+              "width": 350,
+              "height": 400,
+          
+              "mark": {"type" : "line", "tooltip" :true},
+              "encoding": {
+                  "x": {
+                      "field": "Year"
+                  },
+                  "y": {
+                      "field": "Volume of exports of goods and services",
+                      "sort": "descending"
+                  },
+                  "color": {
+                      "field": "Name",
+                      "type": "nominal"
+                  }
+              },
+              "transform" : [{"filter": "Group_selection == null || datum.Name == Group_selection"}]
+          }
+      ]
+  }

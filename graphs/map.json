@@ -80,7 +80,7 @@
                     "legend": {"format": ".2s"}
                 },
       "tooltip": [
-          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "Country", "type": "nominal", "title": "Country"},
           {"field": "GDP", "type": "quantitative", "title": "gdp"},
           {"field": "Attribute", "type": "quantitative", "title": "year"}
               ]
